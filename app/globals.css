@@ -1,26 +1,315 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   THEME SYSTEM — Global CSS Variables
+   Colors are defined as CSS custom properties so they can be
+   changed globally from one place. Both light and dark themes
+   are supported, with system preference detection.
+   ============================================================ */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-heading);
+
+  /* Accent gradient tokens */
+  --color-accent-start: var(--accent-start);
+  --color-accent-mid: var(--accent-mid);
+  --color-accent-end: var(--accent-end);
+  --color-accent-secondary: var(--accent-secondary);
+
+  /* Sidebar tokens */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  /* Chart tokens */
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+
+  /* Core tokens */
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   LIGHT THEME
+   Warm, clean, and premium aesthetic
+   ============================================================ */
+:root {
+  --background: #f8f9ff;
+  --foreground: #0d1c2d;
+  --card: #ffffff;
+  --card-foreground: #0d1c2d;
+  --popover: #ffffff;
+  --popover-foreground: #0d1c2d;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #575e74;
+  --secondary-foreground: #ffffff;
+  --muted: #e5efff;
+  --muted-foreground: #5d647a;
+  --accent: #dbe2fc;
+  --accent-foreground: #141b2e;
+  --destructive: #ba1a1a;
+  --border: #c7c6cd;
+  --input: #c7c6cd;
+  --ring: #7C3AED;
+
+  /* Accent gradient - using the modal button gradient */
+  --accent-start: #7C3AED;
+  --accent-mid: #3B82F6;
+  --accent-end: #06B6D4;
+  --accent-secondary: #8B5CF6;
+
+  /* Chart colors */
+  --chart-1: #7C3AED;
+  --chart-2: #3B82F6;
+  --chart-3: #06B6D4;
+  --chart-4: #8B5CF6;
+  --chart-5: #2DD4BF;
+
+  --radius: 0.75rem;
+
+  /* Sidebar */
+  --sidebar: #e5efff;
+  --sidebar-foreground: #0d1c2d;
+  --sidebar-primary: #000000;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #dbe9ff;
+  --sidebar-accent-foreground: #0d1c2d;
+  --sidebar-border: #c7c6cd;
+  --sidebar-ring: #7C3AED;
+}
+
+/* ============================================================
+   DARK THEME
+   Stitch UI Deep Dark with neon accents
+   ============================================================ */
+.dark {
+  --background: #0a0a0c;
+  --foreground: #e5efff;
+  --card: rgba(255, 255, 255, 0.03);
+  --card-foreground: #e5efff;
+  --popover: #1B2235;
+  --popover-foreground: #e5efff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #575e74;
+  --secondary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: rgba(255, 255, 255, 0.5);
+  --accent: rgba(255, 255, 255, 0.1);
+  --accent-foreground: #ffffff;
+  --destructive: #ffb4ab;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #7C3AED;
+
+  /* Accent gradient */
+  --accent-start: #7C3AED;
+  --accent-mid: #3B82F6;
+  --accent-end: #06B6D4;
+  --accent-secondary: #8B5CF6;
+
+  /* Chart colors */
+  --chart-1: #7C3AED;
+  --chart-2: #3B82F6;
+  --chart-3: #06B6D4;
+  --chart-4: #8B5CF6;
+  --chart-5: #2DD4BF;
+
+  /* Sidebar */
+  --sidebar: rgba(0, 0, 0, 0.2);
+  --sidebar-foreground: #e5efff;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: rgba(255, 255, 255, 0.05);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.05);
+  --sidebar-ring: #7C3AED;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+
+/* Accent gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-start), var(--accent-mid), var(--accent-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Accent gradient background */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--accent-start), var(--accent-mid), var(--accent-end));
+}
+
+/* Glassmorphism card (Stitch UI) */
+@layer utilities {
+  .glass-card {
+      background: color-mix(in srgb, var(--foreground) 3%, transparent);
+      backdrop-filter: blur(12px);
+      border: 1px solid color-mix(in srgb, var(--foreground) 5%, transparent);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card:hover {
+      background: color-mix(in srgb, var(--foreground) 6%, transparent);
+      border-color: color-mix(in srgb, var(--foreground) 10%, transparent);
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.2);
+  }
+  .modal-glass {
+      background: color-mix(in srgb, var(--background) 85%, transparent);
+      backdrop-filter: blur(24px);
+      border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  }
+  .input-gradient-focus:focus {
+      outline: none;
+      border-color: transparent;
+      background-image: linear-gradient(var(--background), var(--background)), linear-gradient(to right, var(--accent-start), var(--accent-end));
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+  }
+  .premium-btn {
+      background: var(--foreground);
+      color: var(--background);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .premium-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--foreground) 60%, transparent);
+  }
+  .shimmer {
+      background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite linear;
+  }
+  @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+  }
+  .nav-item-active {
+      position: relative;
+  }
+  .nav-item-active::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 25%;
+      height: 50%;
+      width: 2px;
+      background-color: var(--foreground);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 999px;
+  opacity: 0.3;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* Animated gradient background for login */
+.animated-gradient {
+  background: linear-gradient(
+    -45deg,
+    var(--accent-start),
+    var(--accent-mid),
+    var(--accent-end),
+    var(--accent-secondary)
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Subtle pattern overlay */
+.pattern-dots {
+  background-image: radial-gradient(circle, var(--muted-foreground) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.03;
+}
+
+/* Focus ring utility */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
 }
